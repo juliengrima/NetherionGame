@@ -151,3 +151,24 @@ app_studio_delete:
     path: /admin/studio/{id}
     controller: App\Controller\StudioController::delete
     methods: [GET, POST]
+    
+# WEBSITE
+app_websites_index:
+    path: /websites/
+    controller: App\Controller\WebsitesController::index
+    methods:  [GET]
+
+app_websites_new:
+    path: /admin/websites/new
+    controller: App\Controller\WebsitesController::new
+    methods:  [GET, POST]
+
+app_websites_edit:
+    path: /admin/websites/{id}/edit
+    controller: App\Controller\WebsitesController::edit
+    methods:  [GET, POST]
+
+app_websites_delete:
+    path: /admin/websites/{id}
+    controller: App\Controller\WebsitesController::delete
+    methods: [GET, POST]
