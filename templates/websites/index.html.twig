@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Websites index{% endblock %}
+
+{% block body %}
+    <h1>Websites index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Link</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for website in websites %}
+            <tr>
+                <td>{{ website.id }}</td>
+                <td>{{ website.link }}</td>
+                <td>{{ website.name }}</td>
+                <td>
+                    <a href="{{ path('app_websites_show', {'id': website.id}) }}">show</a>
+                    <a href="{{ path('app_websites_edit', {'id': website.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_websites_new') }}">Create new</a>
+{% endblock %}

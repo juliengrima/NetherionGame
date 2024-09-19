@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Websites{% endblock %}
+
+{% block body %}
+    <h1>Websites</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ website.id }}</td>
+            </tr>
+            <tr>
+                <th>Link</th>
+                <td>{{ website.link }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ website.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_websites_index') }}">back to list</a>
+
+    <a href="{{ path('app_websites_edit', {'id': website.id}) }}">edit</a>
+
+    {{ include('websites/_delete_form.html.twig') }}
+{% endblock %}
