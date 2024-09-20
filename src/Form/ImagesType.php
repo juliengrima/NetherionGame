@@ -20,12 +20,12 @@ class ImagesType extends AbstractType
         $builder
             ->add('name')
             ->add('link', FileType::class, [
-                'label' => 'Image (PNG, JPEG, MP4 files)',
+                'label' => 'Fichier (PNG, JPEG, MP4 | max 450Mb )',
                 'mapped' => false,
                 'required' => true,
                 'constraints' => [
                     new \Symfony\Component\Validator\Constraints\File([
-                        'maxSize' => '2048k',
+                        'maxSize' => '450M',
                         'mimeTypes' => [
                             'image/png',
                             'image/jpeg',
@@ -39,6 +39,10 @@ class ImagesType extends AbstractType
                 'label' => 'Title',
                 'required' => false,
             ])
+            ->add('video', CheckboxType::class, [
+                'label' => 'Video',
+                'required' => false,
+                ])
             ->add('game', EntityType::class, [
                 'class' => Games::class,
                 'choice_label' => 'name',

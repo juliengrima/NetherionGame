@@ -32,6 +32,9 @@ class Images
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Studio $studio = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $video = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Images
     public function setStudio(?Studio $studio): static
     {
         $this->studio = $studio;
+
+        return $this;
+    }
+
+    public function isVideo(): ?bool
+    {
+        return $this->video;
+    }
+
+    public function setVideo(?bool $video): static
+    {
+        $this->video = $video;
 
         return $this;
     }

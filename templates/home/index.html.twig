@@ -13,7 +13,14 @@
                         {% if image.title %} 
                         {% set hasTitleImage = true %}
                              <div class="swiper-slide">
+                             {% if image.video %}
+                              <video autoplay loop muted playsinline class="slider-video">
+                                    <source src="{{ asset(image.link) }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            {% else %}
                                 <img src="{{ asset(image.link) }}" alt="Slide Image for {{ game.name }}"> 
+                            {% endif %}
                                 <div class="slide-text">
                                     <h3>{{ game.name }}</h3>
                                     <p>{{ game.description }}</p>

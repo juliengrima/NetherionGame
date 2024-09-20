@@ -29,21 +29,29 @@
                     <tr>
                         <td>{{ image.id }}</td>
                         <td>
-                        {% if image.game == null or image.studio == null %}
-                        X
-                        {% elseif image.studio.title != null %}
-                        {{ image.studio.title }}
-                        {% else %}
-                        {{ image.game.name }}
-                        {% endif %}
+                            {% if image.game is null and image.studio is null %}
+                                X
+                            {% elseif image.studio is not null and image.studio.title is not null %}
+                                {{ image.studio.title }}
+                            {% elseif image.game is not null and image.game.name is not null %}
+                                {{ image.game.name }}
+                            {% endif %}
                         </td>
                         <td>{{ image.name }}</td>
                         <td>
-                            <img src="{{ asset(image.link) }}" alt="{{ image.name }}" style="max-width: 100px; height: auto;">
+                           {% if image.video %}
+                                <video width="320" height="240" controls>
+                                    <source src="{{ asset(image.link) }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            {% else %}
+                                <img src="{{ asset(image.link) }}" alt="{{ image.name }}" style="max-width: 100px; height: auto;">
+                            {% endif %}
                             {{ image.link }}
                         </td>
                         <td>{{ image.text }}</td>
                         <td>{{ image.title ? 'Yes' : 'No' }}</td>
+                         <td>{{ image.video ? 'Yes' : 'No' }}</td>
                         <td>
                             <div class="action-buttons">
                                 <a href="{{ path('app_images_edit', {'id': image.id}) }}" class="btn btn-warning">{{ 'Edit'|trans }}</a>

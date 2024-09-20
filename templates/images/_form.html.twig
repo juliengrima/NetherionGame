@@ -1,6 +1,14 @@
 {{ form_start(form) }}
 <table class="table table-striped table-dark">
     <tr>
+        <td>{{ form_label(form.video) }}</td>
+        <td>{{ form_widget(form.video) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.title) }}</td>
+        <td>{{ form_widget(form.title) }}</td>
+     </tr>
+    <tr>
         <td>{{ form_label(form.name) }}</td>
         <td>{{ form_widget(form.name) }}</td>
     </tr>
@@ -8,10 +16,6 @@
         <td>{{ form_label(form.link) }}</td>
         <td>{{ form_widget(form.link) }}</td>
     </tr>
-    <tr>
-        <td>{{ form_label(form.title) }}</td>
-        <td>{{ form_widget(form.title) }}</td>
-     </tr>
      <tr>
         <td>Section</td>
         <td>

@@ -35,7 +35,13 @@ class ImagesController extends AbstractController
             // Gérer l'upload de fichier
             $uploadedFile = $form['link']->getData();
             if ($uploadedFile) {
-                $destination = $this->getParameter('kernel.project_dir').'/public/uploads/images';
+                if ($image->isVideo()) {  // Assurez-vous que 'isVideo' est bien le getter pour le booléen 'video'
+                    $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/videos';
+                    $subdirectory = 'videos';
+                } else {
+                    $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/images';
+                    $subdirectory = 'images';
+                }
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = uniqid().'.'.$uploadedFile->guessExtension();
 
@@ -49,7 +55,8 @@ class ImagesController extends AbstractController
                 }
 
                 // Mettre à jour l'entité avec le chemin du fichier
-                $image->setLink('/uploads/images/'.$newFilename);
+                // $image->setLink('/uploads/images/'.$newFilename);
+                $image->setLink('/uploads/' . $subdirectory . '/' . $newFilename);
             }
             $entityManager->persist($image);
             $entityManager->flush();
@@ -74,7 +81,13 @@ class ImagesController extends AbstractController
             $uploadedFile = $form['link']->getData();
             if ($uploadedFile) {
                 // Handle file upload
-                $destination = $this->getParameter('kernel.project_dir').'/public/uploads/images';
+                if ($image->isVideo()) {  // Assurez-vous que 'isVideo' est bien le getter pour le booléen 'video'
+                    $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/videos';
+                    $subdirectory = 'videos';
+                } else {
+                    $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/images';
+                    $subdirectory = 'images';
+                }
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = uniqid().'.'.$uploadedFile->guessExtension();
 
@@ -87,7 +100,8 @@ class ImagesController extends AbstractController
                     // Handle exceptions if needed
                 }
 
-                $image->setLink('/uploads/images/'.$newFilename);
+                // $image->setLink('/uploads/images/'.$newFilename);
+                $image->setLink('/uploads/' . $subdirectory . '/' . $newFilename);
             }
 
             $entityManager->flush();
