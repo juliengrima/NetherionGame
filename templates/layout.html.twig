@@ -31,11 +31,11 @@
                     {{ 'Websites'|trans }}
                 </a>
                 <ul class="dropdown-menu">
-                    {# {% for website in websites %}
-                        <li><a class="dropdown-item" href="{{ website.link }}">{{ website.name }}</a></li>
+                    {% for website in websites %}
+                        <li><a class="dropdown-item" href="{{ website.link }}" target="_blank">{{ website.name }}</a></li>
                     {% else %}
                         <li><a class="dropdown-item" href="#">{{ 'No websites yet'|trans }}</a></li>
-                    {% endfor %} #}
+                    {% endfor %}
                 </ul>
               </li>
               {# -------- #}

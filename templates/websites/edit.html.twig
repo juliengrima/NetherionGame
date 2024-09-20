@@ -1,13 +1,22 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Edit Websites{% endblock %}
+{% block title %}{{'Edit Websites'|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Edit Websites</h1>
-
-    {{ include('websites/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_websites_index') }}">back to list</a>
-
-    {{ include('websites/_delete_form.html.twig') }}
+<div class="relative-container">
+    <div class="container">
+        <div class="row">
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <h1>{{ 'New Platform'|trans }}</h1>
+                    <a href="{{ path('app_websites_index') }}" class="btn btn-warning">{{ 'back to list'|trans }}</a>
+                </blockquote>
+            </figure>
+        </div>
+            {{ include('websites/_form.html.twig', {'button_label': 'Update'}) }}
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+            {{ include('websites/_delete_form.html.twig') }}
+            {% endif %}
+    </div>
+</div>
 {% endblock %}

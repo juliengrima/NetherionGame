@@ -1,4 +1,11 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<table class="table table-striped table-dark">
+    <tr>
+        <td>{{ form_label(form.name) }}</td>
+        <td>{{ form_widget(form.name) }}</td>
+        <td>{{ form_label(form.link) }}</td>
+        <td>{{ form_widget(form.link) }}</td>
+    </tr>
+</table>
+<button class="btn btn-success">{{ button_label|default('Save'|trans) }}</button>
 {{ form_end(form) }}

@@ -1,37 +1,56 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Websites index{% endblock %}
+
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ 'Websites list'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Websites index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Link</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for website in websites %}
-            <tr>
-                <td>{{ website.id }}</td>
-                <td>{{ website.link }}</td>
-                <td>{{ website.name }}</td>
-                <td>
-                    <a href="{{ path('app_websites_show', {'id': website.id}) }}">show</a>
-                    <a href="{{ path('app_websites_edit', {'id': website.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_websites_new') }}">Create new</a>
+<div class="relative-container">
+    <div class="container">
+        <div class="row">
+        <figure class="text-center">
+            <blockquote class="blockquote">
+                 <h1>{{ 'Platforms list'|trans }}</h1>
+                <a href="{{ path('app_plate_forms_new') }}" class="btn btn-success">{{ 'Add'|trans }}</a>
+            </blockquote>
+        </figure>
+            <table class="table table-striped table-dark">
+                <thead class="text-center">
+                    <tr>
+                        <th>Id</th>
+                        <th>{{ 'Name'|trans }}</th>
+                        <th>{{ 'Link'|trans }}</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                {% for website in websites %}
+                    <tr>
+                        <td>{{ website.id }}</td>
+                        <td>{{ website.name }}</td>
+                        <td>
+                            {# <img src="{{ asset(plate_form.link) }}" alt="{{ plate_form.name }}" style="max-width: 100px; height: auto;"> #}
+                            {{ website.link }}
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                {# <a href="{{ path('app_plate_forms_show', {'id': website.id}) }}" class="btn btn-primary">{{ 'Show'|trans }}</a> #}
+                                <a href="{{ path('app_websites_edit', {'id': website.id}) }}" class="btn btn-warning">{{ 'Edit'|trans }}</a>
+                                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                {{ include('websites/_delete_form.html.twig', {'websites': website}) }}
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">{{'no records found'|trans}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
