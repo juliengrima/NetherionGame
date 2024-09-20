@@ -191,10 +191,13 @@ a:hover {
     position: relative; /* To position the text inside the slide */
 }
 
-.swiper-slide img {
+.swiper-slide img,
+.slider-video {
     max-width: 100%;
-    height: auto;
-    display: block;
+    max-height: 100%;
+    object-fit: cover; /* Ensures the image/video covers the entire slide */
+    width: 100%;
+    height: 100%;
 }
 
 .slide-text {
