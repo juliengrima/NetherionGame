@@ -119,6 +119,17 @@ class ImagesController extends AbstractController
     public function delete(Request $request, Images $image, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->getPayload()->getString('_token'))) {
+            
+            // Récupérer le chemin du fichier à supprimer
+            $fileLink = $image->getLink();  // Chemin du fichier stocké dans l'entité (ex: /uploads/images/...)
+            $filePath = $this->getParameter('kernel.project_dir') . '/public' . $fileLink;
+
+            // Vérifier si le fichier existe
+            if (file_exists($filePath)) {
+                // Supprimer le fichier
+                unlink($filePath);
+            }
+            
             $entityManager->remove($image);
             $entityManager->flush();
         }
