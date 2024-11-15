@@ -20,7 +20,7 @@ class ImagesType extends AbstractType
         $builder
             ->add('name')
             ->add('link', FileType::class, [
-                'label' => 'Fichier (PNG, JPEG, MP4 | max 450Mb )',
+                'label' => 'Fichier (PNG, JPEG, MP4, MOV | max 450Mb )',
                 'mapped' => false,
                 'required' => true,
                 'constraints' => [
