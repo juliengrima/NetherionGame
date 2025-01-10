@@ -3,3 +3,6 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ index.php [QSA,L]
 </IfModule>
+<IfModule mod_mime.c>
+    AddType application/wasm .wasm
+</IfModule>

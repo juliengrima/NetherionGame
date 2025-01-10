@@ -34,6 +34,9 @@ class Games
     #[ORM\ManyToMany(targetEntity: PlateForms::class, inversedBy: 'games')]
     private Collection $platform;
 
+    #[ORM\OneToOne(mappedBy: 'game', cascade: ['persist', 'remove'])]
+    private ?WebGLDemo $webGLDemo = null;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -119,6 +122,28 @@ class Games
     public function removePlatform(PlateForms $platform): static
     {
         $this->platform->removeElement($platform);
+
+        return $this;
+    }
+
+    public function getWebGLDemo(): ?WebGLDemo
+    {
+        return $this->webGLDemo;
+    }
+
+    public function setWebGLDemo(?WebGLDemo $webGLDemo): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($webGLDemo === null && $this->webGLDemo !== null) {
+            $this->webGLDemo->setGame(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($webGLDemo !== null && $webGLDemo->getGame() !== $this) {
+            $webGLDemo->setGame($this);
+        }
+
+        $this->webGLDemo = $webGLDemo;
 
         return $this;
     }
