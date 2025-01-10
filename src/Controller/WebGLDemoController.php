@@ -14,15 +14,15 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/web/g/l/demo')]
 class WebGLDemoController extends AbstractController
 {
-    #[Route('/', name: 'app_web_g_l_demo_index', methods: ['GET'])]
+    #[Route('/', name: 'app_webgldemo_index', methods: ['GET'])]
     public function index(WebGLDemoRepository $webGLDemoRepository): Response
     {
-        return $this->render('web_gl_demo/index.html.twig', [
-            'web_g_l_demos' => $webGLDemoRepository->findAll(),
+        return $this->render('webgldemo/index.html.twig', [
+            'webgldemos' => $webGLDemoRepository->findAll(),
         ]);
     }
 
-    #[Route('/new', name: 'app_web_g_l_demo_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_webgldemo_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $webGLDemo = new WebGLDemo();
@@ -33,24 +33,24 @@ class WebGLDemoController extends AbstractController
             $entityManager->persist($webGLDemo);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_web_g_l_demo_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_webgldemo_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('web_gl_demo/new.html.twig', [
-            'web_g_l_demo' => $webGLDemo,
+        return $this->render('webgldemo/new.html.twig', [
+            'webgldemo' => $webGLDemo,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_web_g_l_demo_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_webgldemo_show', methods: ['GET'])]
     public function show(WebGLDemo $webGLDemo): Response
     {
-        return $this->render('web_gl_demo/show.html.twig', [
-            'web_g_l_demo' => $webGLDemo,
+        return $this->render('webgldemo/show.html.twig', [
+            'webgldemo' => $webGLDemo,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_web_g_l_demo_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_webgldemo_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, WebGLDemo $webGLDemo, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(WebGLDemoType::class, $webGLDemo);
@@ -59,16 +59,16 @@ class WebGLDemoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_web_g_l_demo_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_webgldemo_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('web_gl_demo/edit.html.twig', [
-            'web_g_l_demo' => $webGLDemo,
+        return $this->render('webgldemo/edit.html.twig', [
+            'webgldemo' => $webGLDemo,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_web_g_l_demo_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_webgldemo_delete', methods: ['POST'])]
     public function delete(Request $request, WebGLDemo $webGLDemo, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$webGLDemo->getId(), $request->getPayload()->getString('_token'))) {
@@ -76,6 +76,6 @@ class WebGLDemoController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_web_g_l_demo_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_webgldemo_index', [], Response::HTTP_SEE_OTHER);
     }
 }
