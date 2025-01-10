@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/web/g/l/demo')]
+#[Route('/webgldemo')]
 class WebGLDemoController extends AbstractController
 {
     #[Route('/', name: 'app_webgldemo_index', methods: ['GET'])]

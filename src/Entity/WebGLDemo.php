@@ -18,7 +18,7 @@ class WebGLDemo
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $lin = null;
+    private ?string $link = null;
 
     #[ORM\OneToOne(inversedBy: 'webGLDemo', cascade: ['persist', 'remove'])]
     private ?Games $game = null;
@@ -42,12 +42,12 @@ class WebGLDemo
 
     public function getLin(): ?string
     {
-        return $this->lin;
+        return $this->link;
     }
 
     public function setLin(string $lin): static
     {
-        $this->lin = $lin;
+        $this->link = $lin;
 
         return $this;
     }

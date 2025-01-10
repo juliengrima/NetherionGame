@@ -172,3 +172,29 @@ app_websites_delete:
     path: /admin/websites/{id}
     controller: App\Controller\WebsitesController::delete
     methods: [GET, POST]
+
+#WEBGLDEMO
+app_webgldemo_index:
+    path: /admin/webgldemo/
+    controller: App\Controller\WebGLDemoController::index
+    methods:  [GET]
+
+app_webgldemo_new:
+    path: /admin/webgldemo/new
+    controller: App\Controller\WebGLDemoController::new
+    methods:  [GET, POST]
+
+app_webgldemo_edit:
+    path: /admin/webgldemo/{id}/edit
+    controller: App\Controller\WebGLDemoController::edit
+    methods:  [GET, POST]
+
+app_webgldemo_show:
+    path: /demo/{id}/{name}
+    controller: App\Controller\WebGLDemoController::show
+    methods:  [GET]
+
+app_webgldemo_delete:
+    path: /admin/WebGLDemo/{id}
+    controller: App\Controller\WebGLDemoController::delete
+    methods: [GET, POST]
