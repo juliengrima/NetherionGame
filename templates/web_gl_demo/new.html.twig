@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New WebGLDemo{% endblock %}
+
+{% block body %}
+    <h1>Create new WebGLDemo</h1>
+
+    {{ include('web_gl_demo/_form.html.twig') }}
+
+    <a href="{{ path('app_web_g_l_demo_index') }}">back to list</a>
+{% endblock %}
