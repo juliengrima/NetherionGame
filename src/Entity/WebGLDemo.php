@@ -14,7 +14,7 @@ class WebGLDemo
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -43,14 +43,14 @@ class WebGLDemo
         return $this;
     }
 
-    public function getLin(): ?string
+    public function getLink(): ?string
     {
         return $this->link;
     }
 
-    public function setLin(string $lin): static
+    public function setLink(string $link): static
     {
-        $this->link = $lin;
+        $this->link = $link;
 
         return $this;
     }

@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class WebGLDemoType extends AbstractType
 {
@@ -17,7 +18,13 @@ class WebGLDemoType extends AbstractType
     {
         $builder
         ->add('name')
-        ->add('game')
+        ->add('game', EntityType::class, [
+            'class' => Games::class, // Spécifie l'entité liée
+            'choice_label' => 'name', // Affiche uniquement le champ `name`
+        ])
+        // ->add('link', TextType::class, [
+        //     'label' => 'Lien',
+        // ])
         ->add('dataFile', FileType::class, [
             'label' => 'Fichier .data (Unity WebGL)',
             'mapped' => false,

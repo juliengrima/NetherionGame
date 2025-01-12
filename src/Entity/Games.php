@@ -43,6 +43,11 @@ class Games
         $this->platform = new ArrayCollection();
     }
 
+    function __toString()
+    {
+        return $this->getDescription() . " | " . $this->getName() . " | ". $this->getWebGLDemo();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

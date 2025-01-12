@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}WebGLDemo index{% endblock %}
+{% block title %}{{'Demos list'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>WebGLDemo index</h1>
+    {# <h1>{{'Demos list'|trans }}</h1>
 
     <table class="table">
         <thead>
@@ -15,14 +15,14 @@
             </tr>
         </thead>
         <tbody>
-        {% for web_g_l_demo in web_g_l_demos %}
+        {% for webgldemo in webgldemos %}
             <tr>
-                <td>{{ web_g_l_demo.id }}</td>
-                <td>{{ web_g_l_demo.name }}</td>
-                <td>{{ web_g_l_demo.lin }}</td>
+                <td>{{ webgldemo.id }}</td>
+                <td>{{ webgldemo.name }}</td>
+                <td>{{ webgldemo.link }}</td>
                 <td>
-                    <a href="{{ path('app_web_g_l_demo_show', {'id': web_g_l_demo.id}) }}">show</a>
-                    <a href="{{ path('app_web_g_l_demo_edit', {'id': web_g_l_demo.id}) }}">edit</a>
+                    <a href="{{ path('app_webgldemo_show', {'id': webgldemo.id}) }}">show</a>
+                    <a href="{{ path('app_webgldemo_edit', {'id': webgldemo.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,55 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_web_g_l_demo_new') }}">Create new</a>
+    <a href="{{ path('app_webgldemo_new') }}">Create new</a> #}
+
+    <!-- -->
+
+    <div class="relative-container">
+    <div class="container">
+        <div class="row">
+        <figure class="text-center">
+            <blockquote class="blockquote">
+                 <h1>{{ 'Demos list'|trans }}</h1>
+                <a href="{{ path('app_webgldemo_new') }}" class="btn btn-success">{{ 'Add'|trans }}</a>
+            </blockquote>
+        </figure>
+            <table class="table table-striped table-dark">
+                <thead class="text-center">
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ 'Game'|trans }}</td>
+                        <th>{{ 'Name'|trans }}</th>
+                        <th>{{ 'Path'|trans }}</th>
+                        <th>{{ 'Link'|trans }}</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                {% for webgldemo in webgldemos %}
+                    <tr>
+                        <td>{{ webgldemo.id }}</td>
+                        <td> {{ webgldemo.name }}</td>
+                        <td>{{ webgldemo.path }}</td>
+                        <td>{{ webgldemo.link }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                    {{ include('webgldemo/_delete_form.html.twig', {'webgldemos': webgldemos}) }}
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+

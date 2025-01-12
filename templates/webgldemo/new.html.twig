@@ -1,11 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}New WebGLDemo{% endblock %}
+{% block title %}{{'New GameDemo'|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Create new WebGLDemo</h1>
+    {# <h1>Create new WebGLDemo</h1>
 
-    {{ include('web_gl_demo/_form.html.twig') }}
+    {{ include('webgldemo/_form.html.twig') }}
 
-    <a href="{{ path('app_web_g_l_demo_index') }}">back to list</a>
+    <a href="{{ path('app_webgldemo_index') }}">back to list</a> #}
+
+
+    <h1>{{'New GameDemo'|trans}}</h1>
+    <div class="relative-container">
+        <div class="container">
+            <div class="row">
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <h1>{{ 'Images list'|trans }}</h1>
+                    <a href="{{ path('app_webgldemo_index') }}" class="btn btn-warning">{{ 'back to list'|trans }}</a>
+                </blockquote>
+            </figure>
+            {{ include('webgldemo/_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}
