@@ -3,7 +3,8 @@
 {% block title %}Game Demo - {{ webgldemo.name }}{% endblock %}
 
 {% block body %}
-    <div id="unity-container" class="unity-desktop">
+    {% if webgldemo.dataFilePath %}
+        <div id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas" width=1280 height=720 tabindex="-1"></canvas>
         <div id="unity-loading-bar">
           <div id="unity-logo"></div>
@@ -18,6 +19,9 @@
           <div id="unity-build-title">{{webgldemo.name}}</div>
         </div>
       </div>
+    {% else %}
+        <p>{{ 'No .data files uploaded.'|trans }}</p>
+    {% endif %}
 
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
         <div class="action-buttons">
@@ -63,7 +67,7 @@
     //   var loaderUrl = buildUrl + "/TROTM_WebGL_V0.5.1.loader.js";
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/{{ asset('webgldatas/{{webgldemo.link}}') }",
+        dataUrl: buildUrl + "{{ asset(webgldemo.dataFilePath) }}",
         frameworkUrl: buildUrl + "{{ asset('controllers/unity_framework.js') }",
         // frameworkUrl: buildUrl + "/TROTM_WebGL_V0.5.1.framework.js",
         codeUrl: buildUrl + "{{ asset('controllers/unity_mime.wasm') }",

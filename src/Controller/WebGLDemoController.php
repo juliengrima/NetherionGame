@@ -73,11 +73,21 @@ public function new(Request $request, EntityManagerInterface $entityManager): Re
     #[Route('/{id}', name: 'app_webgldemo_delete', methods: ['POST'])]
     public function delete(Request $request, WebGLDemo $webGLDemo, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$webGLDemo->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$webGLDemo->getId(), $request->request->get('_token'))) {
+            // Chemin du fichier data
+            $dataFilePath = $this->getParameter('kernel.project_dir') . '/public/uploads/webgldatas/' . $webGLDemo->getLink();
+            
+            // Vérifier si le fichier existe
+            if (file_exists($dataFilePath)) {
+                // Supprimer le fichier
+                unlink($dataFilePath);
+            }
+    
+            // Supprimer l'entité de la base de données
             $entityManager->remove($webGLDemo);
             $entityManager->flush();
         }
-
+    
         return $this->redirectToRoute('app_webgldemo_index', [], Response::HTTP_SEE_OTHER);
     }
 }
