@@ -2,6 +2,8 @@
 import './controllers/jquery_3_min.js'
 import './controllers/jquery_ui.js'
 import './controllers/main.js'
+import './controllers/unity_framework.js'
+import './controllers/unity_loader.js'
 /*
  * Welcome to your app's main JavaScript file!
  *

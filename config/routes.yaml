@@ -184,11 +184,6 @@ app_webgldemo_new:
     controller: App\Controller\WebGLDemoController::new
     methods:  [GET, POST]
 
-app_webgldemo_edit:
-    path: /admin/webgldemo/{id}/edit
-    controller: App\Controller\WebGLDemoController::edit
-    methods:  [GET, POST]
-
 app_webgldemo_show:
     path: /demo/{id}/{name}
     controller: App\Controller\WebGLDemoController::show

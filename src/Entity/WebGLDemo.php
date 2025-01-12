@@ -23,6 +23,9 @@ class WebGLDemo
     #[ORM\OneToOne(inversedBy: 'webGLDemo', cascade: ['persist', 'remove'])]
     private ?Games $game = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $dataFilePath = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class WebGLDemo
     public function setGame(?Games $game): static
     {
         $this->game = $game;
+
+        return $this;
+    }
+
+    public function getDataFilePath(): ?string
+    {
+        return $this->dataFilePath;
+    }
+
+    public function setDataFilePath(?string $dataFilePath): self
+    {
+        $this->dataFilePath = $dataFilePath;
 
         return $this;
     }

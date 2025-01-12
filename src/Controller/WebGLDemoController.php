@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/webgldemo')]
 class WebGLDemoController extends AbstractController
@@ -23,48 +24,49 @@ class WebGLDemoController extends AbstractController
     }
 
     #[Route('/new', name: 'app_webgldemo_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $webGLDemo = new WebGLDemo();
-        $form = $this->createForm(WebGLDemoType::class, $webGLDemo);
-        $form->handleRequest($request);
+public function new(Request $request, EntityManagerInterface $entityManager): Response
+{
+    $webGLDemo = new WebGLDemo();
+    $form = $this->createForm(WebGLDemoType::class, $webGLDemo);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($webGLDemo);
-            $entityManager->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Gérer l'upload du fichier .data
+        $dataFile = $form->get('dataFile')->getData();
 
-            return $this->redirectToRoute('app_webgldemo_index', [], Response::HTTP_SEE_OTHER);
+        if ($dataFile) {
+            $uploadDir = $this->getParameter('kernel.project_dir') . '/public/upload/webgldatas';
+
+            // Générer un nom basé sur la relation Games
+            $gameName = $webGLDemo->getGame() ? $webGLDemo->getGame()->getName() : 'default';
+            $fileName = $gameName . '_' . uniqid() . '.' . $dataFile->guessExtension();
+
+            try {
+                // Déplacer le fichier
+                $dataFile->move($uploadDir, $fileName);
+                $webGLDemo->setDataFilePath('/uploads/webgldatas/' . $fileName);
+            } catch (FileException $e) {
+                $this->addFlash('error', 'Erreur lors du téléchargement du fichier.');
+            }
         }
 
-        return $this->render('webgldemo/new.html.twig', [
-            'webgldemo' => $webGLDemo,
-            'form' => $form,
-        ]);
+        $entityManager->persist($webGLDemo);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_webgldemo_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    return $this->render('webgldemo/new.html.twig', [
+        'webgldemo' => $webGLDemo,
+        'form' => $form,
+    ]);
+}
 
     #[Route('/{id}', name: 'app_webgldemo_show', methods: ['GET'])]
     public function show(WebGLDemo $webGLDemo): Response
     {
         return $this->render('webgldemo/show.html.twig', [
             'webgldemo' => $webGLDemo,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_webgldemo_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, WebGLDemo $webGLDemo, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(WebGLDemoType::class, $webGLDemo);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_webgldemo_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('webgldemo/edit.html.twig', [
-            'webgldemo' => $webGLDemo,
-            'form' => $form,
         ]);
     }
 
