@@ -1,4 +1,26 @@
-{{ form_start(form) }}
+{# {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }} #}
+
+{{ form_start(form, { 'attr': {'enctype': 'multipart/form-data'} }) }}
+<table class="table table-striped table-dark">
+    <tr>
+        <td>{{ form_label(form.name) }}</td>
+        <td>{{ form_widget(form.name) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.link) }}</td>
+        <td>{{ form_widget(form.link) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.game) }}</td>
+        <td>{{ form_widget(form.game) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.dataFile) }}</td>
+        <td>{{ form_widget(form.dataFile) }}</td>
+    </tr>
+</table>
+<button class="btn btn-success">{{ button_label|default('Save'|trans) }}</button>
 {{ form_end(form) }}
